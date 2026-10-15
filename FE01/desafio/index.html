@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEMAS 01 & 02 • Da ARPANET aos Serviços Web</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #090d16 0%, #15254a 50%, #0c4a6e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px 16px;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 860px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+        }
+
+        /* ===== CABEÇALHO ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #0284c7;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            color: #0f172a;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            letter-spacing: -0.5px;
+        }
+
+        .header h1 span {
+            color: #0284c7;
+        }
+
+        .header p {
+            color: #64748b;
+            font-size: 0.98rem;
+            max-width: 680px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .badge-tema {
+            display: inline-block;
+            background: #0284c7;
+            color: #ffffff;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.78rem;
+            margin-top: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-tema-dois {
+            display: inline-block;
+            background: #7c3aed;
+            color: #ffffff;
+            padding: 3px 14px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.72rem;
+            margin-top: 4px;
+        }
+
+        /* ===== ITENS DO MENU ===== */
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .menu-item {
+            display: block;
+            padding: 18px 20px;
+            background: #f8fafc;
+            border-radius: 16px;
+            border-left: 6px solid #cbd5e1;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            color: #1e293b;
+            border-top: 1px solid #f1f5f9;
+            border-right: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .menu-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            background: #f0f9ff;
+        }
+
+        .menu-item .linha {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .menu-item .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+        }
+
+        .menu-item .info {
+            flex: 1;
+        }
+
+        .menu-item .info h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .menu-item .info p {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 3px;
+            line-height: 1.45;
+        }
+
+        .menu-item .seta {
+            font-size: 1.4rem;
+            color: #94a3b8;
+            transition: 0.25s;
+            flex-shrink: 0;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .menu-item:hover .seta {
+            color: #0284c7;
+            transform: translateX(4px);
+        }
+
+        /* ===== CORES ESPECÍFICAS ===== */
+        .menu-item.teoria     { border-left-color: #0284c7; }
+        .menu-item.desafio    { border-left-color: #ea580c; background: #fffbf7; }
+        .menu-item.guia       { border-left-color: #10b981; }
+        .menu-item.conclusao  { border-left-color: #7c3aed; }
+
+        .menu-item.desafio:hover {
+            background: #fff7ed;
+            box-shadow: 0 6px 22px rgba(234, 88, 12, 0.15);
+        }
+
+        /* ===== ETIQUETAS (BADGES) ===== */
+        .badge-rotulo {
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+
+        .badge-guia   { background: #dcfce7; color: #15803d; }
+        .badge-fim    { background: #f3e8ff; color: #6b21a8; }
+
+        /* Badge Animado - Laranja (Desafio) */
+        .badge-atividade {
+            background: #ea580c;
+            color: #ffffff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: auto;
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            animation: pulse-alerta 2s infinite;
+        }
+
+        @keyframes pulse-alerta {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Badge Animado - Azul (Item 1 com Atividade Prática) */
+        .badge-atividade-azul {
+            background: #0284c7;
+            color: #ffffff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: auto;
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            animation: pulse-alerta-azul 2s infinite;
+        }
+
+        @keyframes pulse-alerta-azul {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* ===== SUB-LINKS DO DESAFIO ===== */
+        .desafio-links-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px dashed #fed7aa;
+            flex-wrap: wrap;
+        }
+
+        .btn-sublink {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-sublink.imagem {
+            background: #f1f5f9;
+            color: #334155;
+            border: 1px solid #cbd5e1;
+        }
+        .btn-sublink.imagem:hover {
+            background: #0f172a;
+            color: #ffffff;
+            border-color: #0f172a;
+        }
+
+        .checklist-desafio {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .check-pill {
+            font-size: 0.7rem;
+            background: #ffffff;
+            color: #7c2d12;
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid #fed7aa;
+            font-weight: 600;
+        }
+
+        /* ===== RODAPÉ ===== */
+        .footer {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 2px solid #f1f5f9;
+        }
+
+        .footer h4 {
+            color: #0f172a;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .footer-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: #f8fafc;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #1e293b;
+            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
+            font-size: 0.92rem;
+        }
+
+        .footer-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            border-color: #eb7d00;
+        }
+
+        .footer-link.form {
+            border-left: 5px solid #ff00c8;
+        }
+
+        .footer-link.form:hover {
+            border-color: #010302;
+            background: #f0fdf4;
+        }
+
+        .footer-link .icon-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .footer-link .texto {
+            flex: 1;
+        }
+
+        .footer-link .texto small {
+            display: block;
+            font-size: 0.72rem;
+            color: #64748b;
+            margin-top: 2px;
+        }
+
+        .footer .obs {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.76rem;
+            color: #02ffb3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 650px) {
+            .container { padding: 22px 16px; }
+            .header h1 { font-size: 1.45rem; }
+            .menu-item { padding: 14px 16px; }
+            .menu-item .info h3 { font-size: 0.95rem; }
+            .badge-atividade, .badge-atividade-azul { font-size: 0.58rem; padding: 3px 8px; }
+            .desafio-links-container { flex-direction: column; }
+            .footer-links { max-width: 100%; }
+        }
+
+        @media (max-width: 420px) {
+            .menu-item .info p { font-size: 0.78rem; }
+            .menu-item .seta { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ===== CABEÇALHO ===== -->
+    <header class="header">
+        <h1>
+            <!-- Ícone: Conexão Global e Nós da Rede -->
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+            TEMAS <span>01 &bull; 02</span> &bull; Da ARPANET aos Serviços Web
+        </h1>
+        <p>Hub Integrador de Conteúdos, Desafio Prático de Front-End e Guias das Eras da Web</p>
+        <span class="badge-tema">História da Internet &bull; Web 1.0, 2.0 &amp; 3.0 &bull; Arquitetura de Redes</span>
+        <br>
+        <span class="badge-tema-dois">TCP/IP &bull; CERN / W3C &bull; Brasil (.br) &bull; URI vs. URL &bull; APIs REST</span>
+    </header>
+
+    <!-- ===== MENU PRINCIPAL DE CONTEÚDOS ===== -->
+    <main class="menu-list">
+
+        <!-- 1) TEMA 1 E 2: TEORIA E ATIVIDADE PRÁTICA -->
+        <a href="tema1.html" target="_blank" rel="noopener noreferrer" class="menu-item teoria">
+            <div class="linha">
+                <span class="icon">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                        <line x1="8" y1="21" x2="16" y2="21"/>
+                        <line x1="12" y1="17" x2="12" y2="21"/>
+                    </svg>
+                </span>
+                <div class="info">
+                    <h3>1) Da ARPANET aos Serviços Web</h3>
+                    <p>Material completo com <strong>atividades práticas</strong>: simulador de URL com DevTools, comutação da ARPANET, labs no OneCompiler, Internet no Brasil e avaliação formativa com gabarito</p>
+                </div>
+                <span class="badge-atividade-azul">ATIVIDADE PR&Aacute;TICA</span>
+                <span class="seta">&rarr;</span>
+            </div>
+        </a>
+
+        <!-- 2) DESAFIO WEB: LINK PRINCIPAL PARA desafio.html -->
+        <div class="menu-item desafio">
+            <a href="desafio.html" target="_blank" rel="noopener noreferrer" class="linha">
+                <span class="icon">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                </span>
+                <div class="info">
+                    <h3>2) Desafio WEB: Máquina do Tempo</h3>
+                    <p>Aproxime o visual das 3 fases do template (Web 1.0, 2.0 e 3.0) ao da figura de referência <code>WEBs.png</code>. Solicite a votação de 5 colegas no app, salve o resultado, publique no GitHub Pages e envie o link público.</p>
+                </div>
+                <span class="badge-atividade">ATIVIDADE PR&Aacute;TICA</span>
+                <span class="seta">&rarr;</span>
+            </a>
+
+            <!-- Checklist rápido dos requisitos -->
+            <div class="checklist-desafio">
+                <span class="check-pill">&check; Estilizar Web 1.0, 2.0 e 3.0</span>
+                <span class="check-pill">&check; Mínimo 5 votos de colegas</span>
+                <span class="check-pill">&check; Gravação no LocalStorage</span>
+                <span class="check-pill">&check; Publicar no GitHub Pages</span>
+            </div>
+
+            <!-- Botão direto apenas para a imagem de referência (WEBs.png) -->
+            <div class="desafio-links-container">
+                <a href="WEBs.png" target="_blank" rel="noopener noreferrer" class="btn-sublink imagem">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <polyline points="21 15 16 10 5 21"/>
+                    </svg>
+                    Ver Imagem de Referência (WEBs.png)
+                </a>
+            </div>
+        </div>
+
+        <!-- 3) GUIA DE ESTILIZAÇÃO DAS ERAS DA WEB -->
+        <a href="apoio.html" target="_blank" rel="noopener noreferrer" class="menu-item guia">
+            <div class="linha">
+                <span class="icon">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 20h9"/>
+                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                    </svg>
+                </span>
+                <div class="info">
+                    <h3>3) Guia de Estilização das Eras da Web</h3>
+                    <p>Receitas de CSS prontas: verde Windows 95, bordas em relevo, botões glossy Web 2.0, neon Web 3.0 e baú de curiosidades históricas</p>
+                </div>
+                <span class="badge-rotulo badge-guia">APOIO &bull; CSS</span>
+                <span class="seta">&rarr;</span>
+            </div>
+        </a>
+
+        <!-- 4) CONCLUSÕES & SÍNTESE -->
+        <a href="conclusao.html" target="_blank" rel="noopener noreferrer" class="menu-item conclusao">
+            <div class="linha">
+                <span class="icon">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
+                </span>
+                <div class="info">
+                    <h3>4) Conclusões &amp; Síntese da Disciplina</h3>
+                    <p>Quadro mnemônico (Ler / Escrever / Possuir), o duelo Web 3.0 vs. Web3, simulador da biblioteca e emissão de comprovante em PDF (A4)</p>
+                </div>
+                <span class="badge-rotulo badge-fim">S&Iacute;NTESE</span>
+                <span class="seta">&rarr;</span>
+            </div>
+        </a>
+
+    </main>
+
+    <!-- ===== RODAPÉ COM FORMULÁRIO DE ENTREGA ===== -->
+    <footer class="footer">
+        <h4>
+            <!-- Ícone: Prancheta / Relatório -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                <path d="M15 2H9a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1Z"/>
+                <path d="m9 14 2 2 4-4"/>
+            </svg>
+            Formul&aacute;rio Oficial de Entrega
+        </h4>
+
+        <div class="footer-links">
+            <a href="https://forms.gle/zbUB57A4FteUDsKSA" target="_blank" rel="noopener noreferrer" class="footer-link form">
+                <span class="icon-box">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                    </svg>
+                </span>
+                <div class="texto">
+                    <strong>Envio do Relat&oacute;rio dos Temas 01 &bull; 02</strong>
+                    <small>Link público do GitHub Pages + Ata da Votação (5 colegas)</small>
+                </div>
+                <span class="seta" style="color: #16a34a; font-weight: bold; font-size: 1.2rem;">&rarr;</span>
+            </a>
+        </div>
+
+        <div class="obs">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
+                <path d="M9 18h6"/>
+                <path d="M10 22h4"/>
+            </svg>
+            Clique nos itens para abrir os arquivos em novas abas
+        </div>
+    </footer>
+
+</div>
+
+</body>
+</html>
